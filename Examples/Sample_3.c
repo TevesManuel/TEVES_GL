@@ -1,4 +1,4 @@
-#include "./TevesGL/Teves.h"
+#include <TevesGL/Teves.h>
 #include <stdio.h>
 #include <stdlib.h>
 
