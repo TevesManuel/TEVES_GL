@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>TevesGL documentation</title>
+</head>
+<body>
+    <div id = "Title">Teves GL documentation</div>
+    <div style="display: flex;">
+        <div id="menu"></div>
+        <div id = "body-learn">
+            <div>
+                <div id = "body-learn-normal">Teves GL is a cross-platform development library designed to provide low-level access to keyboard, mouse, joystick, and graphics hardware via OpenGL simply, quickly, and efficiently, is programmed in C with binding to C++.</div></br>
+                <div id = "body-learn-normal">Let's start with a simple code, initialize the library and check if works</div></br>
+                <div id = "body-learn-code"></div>
+                <div id = "body-learn-normal">This code is very simple, but still works well to verify if library work in your machine</div></br>
+                <div id = "body-learn-normal">Download <a href="sample_0.c">code</a></div></br>
+                <div id = "body-learn-normal">the next <a href="basic_window.html">lesson</a> is how open a simple window</div></br>
+            </div>
+        </div>
+    </div>
+    <script src="jquery.js"></script>
+    <script> 
+        $(function(){
+            $("#menu").load("menu.html");
+            $.get("sample_0.c", (data) => {
+                document.getElementById("body-learn-code").innerHTML = data.replace("<", "&lt;").replace(">", "&gt;").replaceAll("\n", "</br>").replaceAll("\t", "&nbsp;");
+            });
+        });
+    </script>
+    @Copyright 2022 TEVES
+</body>
+</html>

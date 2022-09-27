@@ -1,0 +1,66 @@
+*
+{
+    padding: 0px;
+    margin: 0px;
+}
+body
+{
+    background-color: rgb(200,200,200);
+    display: block;
+}
+#Title
+{
+    margin: 5px;
+    padding: 5px;
+    background-color: rgb(30, 30, 30);
+    color: rgb(255, 255, 255);
+    font-size: xxx-large;
+}
+#body-learn
+{
+    margin: 5px;
+    background-color: rgb(30, 30, 30);
+    color: rgb(255, 255, 255);
+    font-size: larger;
+    font-size: 160%;
+    font-family: monospace;
+    width: 160%;
+}
+#menu
+{
+    position: relative;
+    width: 40%;
+    margin: 5px;
+    padding: 10px;
+    background-color: rgb(30, 30, 30);
+    color: rgb(255, 255, 255);
+    font-size: 200%;
+    font-family: monospace;
+    text-align: center;
+}
+#body-learn-normal
+{
+    margin: 10px;
+}
+#body-learn-code
+{
+    white-space: nowrap;    
+    margin-right: 0px;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(40, 40, 40);
+    width: min-content;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+#body-learn-code-extra
+{
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(40, 40, 40);
+    overflow-x: auto; 
+    overflow-y: hidden;
+    overflow: auto;
+    width: min-content;
+    white-space: nowrap;    
+}

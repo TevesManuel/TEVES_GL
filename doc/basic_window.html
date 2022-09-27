@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>TevesGL documentation</title>
+</head>
+<body>
+    <div id = "Title">Teves GL documentation</div>
+    <div style="display: flex;">
+        <div id="menu"></div>
+        <div id = "body-learn">
+            <div>
+                <div id = "body-learn-normal">Create simple window</div></br>
+                <div id = "body-learn-normal">To create a simple window you need 4 things, 1 start the library, 2 create/configure the window, 3 define an update function, 4 loop enter</div></br>
+                <div id = "body-learn-code"></div></br>
+                <div id = "body-learn-normal">Download <a href="sample_1.c">code</a></div></br>
+                <div id = "body-learn-normal">There was a difficulty jump, let's analyze the code.</div></br>
+                <div id = "body-learn-code-extra">TEVES_Color background</div>
+                <div id = "body-learn-normal">First we see TEVES_Color, it is a type of variable that is used to define a color in RGBA</div></br>
+                <div id = "body-learn-normal">then we see TEVES_Clear(), TEVES_SetDrawColor(), TEVES_DrawRectA(), but I think they explain themselves with the name, code and comments, even so you can see in the documentation the specific parameters, uses and function of each function.</div></br>
+                <div id = "body-learn-code-extra">TEVES_Window background</div>
+                <div id = "body-learn-normal">TEVES_Window is possibly the most important object in this library. It stores the window, all its settings and states. </div></br>
+                <div id = "body-learn-code-extra">TEVES_InitWindow(TEVES_Window * win, const char * title, int width, int height, TEVES_BOOL isAnUser)</div>
+                <div id = "body-learn-normal">This function init TEVES_Window object</div></br>
+                <div id = "body-learn-code-extra">TEVES_SetUpdate(TEVES_Window * win, void * Update)</div>
+                <div id = "body-learn-normal">This function set update function in TEVES_Window object</div></br>
+                <div id = "body-learn-code-extra">TEVES_InitColor(int r, int g, int b, int a)</div>
+                <div id = "body-learn-normal">This function make and return a color in RGBA</div></br>
+                <div id = "body-learn-code-extra">TEVES_Loop(TEVES_Window * win)</div>
+                <div id = "body-learn-normal">This function initializes an infinite loop until either the user closes the window or you as the developer want it to close.</div></br>
+            </div>
+        </div>
+    </div>
+    <script src="jquery.js"></script>
+    <script> 
+        $(function(){
+            $("#menu").load("menu.html");
+            $.get("sample_1.c", (data) => {
+                document.getElementById("body-learn-code").innerHTML = data.replace("<", "&lt;").replace(">", "&gt;").replaceAll("\n", "</br>").replaceAll("\t", "&nbsp;");
+            });
+        });
+    </script>
+    @Copyright 2022 TEVES
+</body>
+</html>
