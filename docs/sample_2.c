@@ -38,7 +38,7 @@ int main()//Define main function
     
     TEVES_SetUpdate(&win, &update);//Set update function
 
-    TEVES_InitKeyboard(&keyboard, &win);
+    TEVES_InitKeyboard(&keyboard, &win);//link keyboard with window
 
     background = TEVES_InitColor(0, 0, 0, 255);//Define color with RGBA
 

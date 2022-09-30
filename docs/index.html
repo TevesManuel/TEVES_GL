@@ -27,7 +27,7 @@
         $(function(){
             $("#menu").load("menu.html");
             $.get("sample_0.c", (data) => {
-                document.getElementById("body-learn-code").innerHTML = data.replace("<", "&lt;").replace(">", "&gt;").replaceAll("\n", "</br>").replaceAll("\t", "&nbsp;");
+                document.getElementById("body-learn-code").innerHTML = data.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "</br>").replaceAll("\t", "&nbsp;");
             });
         });
     </script>
