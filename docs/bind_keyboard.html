@@ -13,11 +13,12 @@
         <div id="menu"></div>
         <div id = "body-learn">
             <div>
-                <div id = "body-learn-normal">Create simple window</div></br>
-                <div id = "body-learn-normal">To create a simple window you need 4 things, 1 start the library, 2 create/configure the window, 3 define an update function, 4 loop enter</div></br>
+                <div id = "body-learn-normal">Bind the keyboard</div></br>
+                <div id = "body-learn-normal">To use the keyboard you must initialize the keyboard linking it with the window, update it in each update and obviously do the readings</div></br>
                 <div id = "body-learn-code"></div></br>
                 <div id = "body-learn-normal">Download <a href="sample_2.c">code</a></div></br>
-                <div id = "body-learn-code-extra">TEVES_Loop(TEVES_Window * win)</div>
+                <div id = "body-learn-code-extra">TEVES_UpdateKeyboard(TEVES_Keyboard * tk)</div>
+                <div id = "body-learn-normal">This function updates the keyboard, without this function the keyUp and KeyDown functions are disabled</div></br>
             </div>
         </div>
     </div>
@@ -25,7 +26,7 @@
     <script> 
         $(function(){
             $("#menu").load("menu.html");
-            $.get("sample_1.c", (data) => {
+            $.get("sample_2.c", (data) => {
                 document.getElementById("body-learn-code").innerHTML = data.replace("<", "&lt;").replace(">", "&gt;").replaceAll("\n", "</br>").replaceAll("\t", "&nbsp;");
             });
         });

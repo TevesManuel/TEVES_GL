@@ -10,17 +10,21 @@ void update()//Define update function
     TEVES_Clear(background);//Clean window with TEVES_Color variable
     TEVES_SetDrawColor(TEVES_InitColor(255,255,255,255));//Setting color for drawing directly RGBA values
     TEVES_DrawRectA(10, 10, 100, 100);//Draw rect with color white
-    if(TEVES_GetKey(&keyboard, TEVES_KEY_A))//Detect always if A is pressed
+    if(TEVES_GetKey(&keyboard, TEVES_KEY_A))//Detect always if A is pressed in window
     {
         printf("A is pressed\n");
     }
-    if(TEVES_GetKeyUp(&keyboard, TEVES_KEY_S))//Detect if S is released
+    if(TEVES_GetKeyUp(&keyboard, TEVES_KEY_S))//Detect if S is released in window
     {
         printf("release S.\n");
     }
-    if(TEVES_GetKeyDown(&keyboard, TEVES_KEY_S))//Detect if S is pressed
+    if(TEVES_GetKeyDown(&keyboard, TEVES_KEY_S))//Detect if S is pressed in window
     {
         printf("pressed S.\n");
+    }
+    if(TEVES_GetKeyDownSys(&keyboard, TEVES_KEY_D))//Detect if S is pressed in system
+    {
+        printf("pressed D.\n");
     }
 }
 
