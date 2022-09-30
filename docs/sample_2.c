@@ -38,6 +38,8 @@ int main()//Define main function
     
     TEVES_SetUpdate(&win, &update);//Set update function
 
+    TEVES_InitKeyboard(&keyboard, &win);
+
     background = TEVES_InitColor(0, 0, 0, 255);//Define color with RGBA
 
     TEVES_Loop(&win);//Init loop with update function
