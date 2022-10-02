@@ -13,3 +13,4 @@ TEVES_Color TEVES_InitColor(int r, int g, int b, int a);
 TEVES_Color TEVES_InitColorA(int rgb);
 TEVES_Color TEVES_RGBA(int r, int g, int b, int a);
 TEVES_Color TEVES_IntermediateColor(TEVES_Color a, TEVES_Color b);
+TEVES_Color TEVES_GetRandomColor();

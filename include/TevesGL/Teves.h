@@ -35,7 +35,8 @@ typedef unsigned int TEVES_BOOL;
 
 unsigned int TEVES_TERMINATE();
 unsigned int TEVES_wait(int ms);
-
+float TEVES_randomW(int min, int max);
+float TEVES_randomA(int max);
 
 #ifdef __cplusplus
 }
