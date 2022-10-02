@@ -23,7 +23,8 @@ TEVES_BOOL ViewBoxesMode;
 
 #define FPS_PLAYER_ANIM 10
 #define FPS_ENEMY_ANIM  5
-
+#define DELAY_ATTACK_IA 2
+#define SPAWN_ENEMY_TIME 5
 unsigned int EnemiesCounter;
 #define SIZE_ENEMY_ARRAY 32
 TObject Enemies[SIZE_ENEMY_ARRAY];
@@ -33,6 +34,8 @@ typedef struct EnemyPropertyObject
     unsigned int hitted;
     float timeonlasthit;
     TEVES_BOOL isrunning;
+    TEVES_BOOL ishitting;
+    float timeonlastattack;
 }EnemyPropertyObject;
 
 EnemyPropertyObject EnemiesProperties[SIZE_ENEMY_ARRAY];
@@ -40,6 +43,8 @@ EnemyPropertyObject EnemiesProperties[SIZE_ENEMY_ARRAY];
 TEVES_Anim idleAnimIA;
 TEVES_Anim runAnimIA;
 TEVES_Anim attackAnimIA;
+
+TEVES_Font font;
 
 #define PLAYER_INITIAL_LIVES 3
 struct
@@ -59,10 +64,21 @@ EnemyPropertyObject newObject[SIZE_ENEMY_ARRAY];
 
 #define TIME_ANIM_HITTED 0.5f
 
+int puntos = 0;
+
+//0 menu
+//1 game
+//2 gameover
+unsigned int scene;
+
+TEVES_BOOL clearscenegameover_is;
+
+double timetogenerateenemy;
+
 void add_Enemy()
 {
     TEVES_Animator_SetAnim(&Enemies[EnemiesCounter].animator, idleAnimIA, 10);
-    Enemies[EnemiesCounter].transform.x = 0;
+    Enemies[EnemiesCounter].transform.x = TEVES_randomA(window.w);
     Enemies[EnemiesCounter].transform.y = 362;
     Enemies[EnemiesCounter].transform.width  = 80;
     Enemies[EnemiesCounter].transform.height = 80;
@@ -73,6 +89,9 @@ void add_Enemy()
     Enemies[EnemiesCounter].initializated = TEVES_TRUE;
     Enemies[EnemiesCounter].id = EnemiesCounter;
     EnemiesProperties[EnemiesCounter].life = 3;
+    EnemiesProperties[EnemiesCounter].isrunning = TEVES_FALSE;
+    EnemiesProperties[EnemiesCounter].ishitting = TEVES_FALSE;
+    EnemiesProperties[EnemiesCounter].timeonlastattack = 0;
     EnemiesProperties[EnemiesCounter].timeonlasthit = -TIME_ANIM_HITTED;
     EnemiesCounter++;
 }
@@ -82,6 +101,9 @@ void Updates()
     TEVES_UpdateKeyboard(&Keyboard);
 
     TEVES_TObject_Update(&Player);
+    if(PlayerProperties.live <= 0)
+        scene = 2;
+
     for(int i = 0; i < SIZE_ENEMY_ARRAY; i++)
     {
         if(Enemies[i].initializated)
@@ -95,6 +117,8 @@ void Updates()
     memset(newEnemies, 0, sizeof(newEnemies));
     memset(newObject, 0, sizeof(newObject));
     
+    EnemiesCounter = 0;
+
     for(int i = 0; i < SIZE_ENEMY_ARRAY; i++)
     {
         if(Enemies[i].initializated && EnemiesProperties[i].life > 0)
@@ -102,6 +126,7 @@ void Updates()
             newEnemies[positionArray] = Enemies[i];
             newObject[positionArray] = EnemiesProperties[i];
             positionArray++;
+            EnemiesCounter++;
         }
     }
     for(int i = 0; i < SIZE_ENEMY_ARRAY; i++)
@@ -157,7 +182,13 @@ void PhysicalManager()
 }
 void IA()
 {
+    printf("a: %d\n", EnemiesCounter);
     //IA
+    if(window.time > timetogenerateenemy && EnemiesCounter <= 10)
+    {
+        timetogenerateenemy = window.time + SPAWN_ENEMY_TIME;
+        add_Enemy();
+    }
     for(int i = 0; i < SIZE_ENEMY_ARRAY; i++)
     {
         if(Enemies[i].initializated)
@@ -188,6 +219,11 @@ void IA()
                 if(EnemiesProperties[i].isrunning == TEVES_TRUE)
                 {
                     EnemiesProperties[i].isrunning = TEVES_FALSE;
+                    TEVES_Animator_SetAnim(&Enemies[i].animator, idleAnimIA, FPS_ENEMY_ANIM);
+                }
+                if(window.time > EnemiesProperties[i].timeonlastattack && !EnemiesProperties[i].ishitting)
+                {
+                    EnemiesProperties[i].ishitting = TEVES_TRUE;
                     TEVES_Animator_SetAnim(&Enemies[i].animator, attackAnimIA, FPS_ENEMY_ANIM);
                 }
             }
@@ -255,7 +291,7 @@ void DrawBoxes()
         TEVES_Physical_DrawHitBox(Player.physic.hitbox);
     }
 }
-void Update()
+void GameScene()
 {
     Updates();
 
@@ -275,16 +311,52 @@ void Update()
 
     GraphicalManager();
     
-    printf("A: %d\n", window.aot);
-
     DrawBoxes();
     
+    char a[256];
+    sprintf(a, "%d", puntos);
+
+    TEVES_FontDrawText(&font, a, window.w*0.48, window.h*0.1f);
+
     // printf("fx: %d, fy: %d\n", Player.transform.flipped_x, Player.transform.flipped_y);
 
     //Calibrate hitbox
     // TEVES_TObject_CalibrateHitbox(&Player, -100, 100, 0.25f);
     // TEVES_TObject_CalibrateTransform(&Player, -1000, 1000, 1);
     // TEVES_TObject_Calibrate(&Enemies[0], -100, 100, 0.25f);
+}
+void Update()
+{
+    if(scene == 0) // MENU
+    {
+        TEVES_UpdateKeyboard(&Keyboard);
+        TEVES_FontDrawText(&font, "Welcome to simple sample for basic usage TEVES_GL", window.w*0.44, 10);
+        TEVES_FontDrawText(&font, "Press space to init sample.", window.w*0.44, window.h*0.5);
+        if(TEVES_GetKeyUp(&Keyboard, TEVES_KEY_SPACE))
+            scene = 1;
+    }
+    else if(scene == 1) // game
+        GameScene();
+    else if(scene == 2) //game over
+    {
+        if(!clearscenegameover_is)
+        {
+            TEVES_ClearRGBA(20, 20, 20, 100);
+            clearscenegameover_is = TEVES_TRUE;
+        }
+        TEVES_UpdateKeyboard(&Keyboard);
+        TEVES_FontDrawText(&font, "GAMEOVER", window.w*0.44, 10);
+        TEVES_FontDrawText(&font, "Press space to init sample.", window.w*0.44, window.h*0.5);
+        if(TEVES_GetKeyUp(&Keyboard, TEVES_KEY_SPACE))
+        {
+            PlayerProperties.hitted = TEVES_FALSE;
+            PlayerProperties.live   = 3;
+            memset(&Enemies, 0, sizeof(Enemies));
+            memset(&EnemiesProperties, 0, sizeof(EnemiesProperties));
+            add_Enemy();
+            scene = 1;    
+        }
+    }
 }
 
 void HitEnemy(int index)
@@ -311,6 +383,8 @@ void callback_punchAnimation(TEVES_Anim anim)
                   )
                 {
                     HitEnemy(i);
+                    if(EnemiesProperties[i].life <= 0)
+                        puntos++;
                 }
             }
             else
@@ -324,6 +398,8 @@ void callback_punchAnimation(TEVES_Anim anim)
                 )
                 {
                     HitEnemy(i);
+                    if(EnemiesProperties[i].life <= 0)
+                        puntos++;
                 }
             }
         }
@@ -354,6 +430,9 @@ void callback_punchAnimationIA(TEVES_Anim anim)
             PlayerProperties.live--;
         }
     }
+    EnemiesProperties[anim.id].timeonlastattack = window.time + DELAY_ATTACK_IA;
+    EnemiesProperties[anim.id].ishitting = TEVES_FALSE;
+
     TEVES_Animator_SetAnim(&Enemies[anim.id].animator, idleAnimIA, FPS_ENEMY_ANIM);
 }
 
@@ -385,6 +464,8 @@ int main()
 
     TEVES_InitKeyboard(&Keyboard, &window);
     
+    TEVES_InitFontW(&font, "./arial.ttf", 24, TEVES_InitColor(255, 204, 0, 255), TEVES_FONT_ALIGN_CENTER);
+
     TEVES_Image_LoadImageA(&background, "./media/Background.png");
 
     background.transform.x = 0.0f;
@@ -445,7 +526,7 @@ int main()
                                                                            TEVES_IMAGE_LEFT_ALIGN);
     TEVES_Anim_LinkWindow(&attackAnimIA, &window);
     TEVES_Anim_SetNoRepeteable(&attackAnimIA, &callback_punchAnimationIA);
-
+    timetogenerateenemy = 0;
 
     add_Enemy();
     add_Enemy();

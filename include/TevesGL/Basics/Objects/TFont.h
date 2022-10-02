@@ -19,7 +19,8 @@ typedef struct TEVES_Font
     TEVES_MODE mode;
 }TEVES_Font;
 
-unsigned int TEVES_InitFont(TEVES_Font * tfont, const char * font_path, unsigned int font_size, TEVES_MODE _mode);
-unsigned int TEVES_InitFontW(TEVES_Font * tfont, const char * font_path, unsigned int font_size, TEVES_Color _color, TEVES_MODE _mode);
+unsigned int TEVES_InitFont    (TEVES_Font * tfont, const char * font_path, unsigned int font_size, TEVES_MODE _mode);
+unsigned int TEVES_InitFontW   (TEVES_Font * tfont, const char * font_path, unsigned int font_size, TEVES_Color _color, TEVES_MODE _mode);
 unsigned int TEVES_FontDrawChar(TEVES_Font * tfont, char a, float x, float y);
 unsigned int TEVES_FontDrawText(TEVES_Font * tfont, const char * a, float x, float y);
+unsigned int TEVES_FontSetColor(TEVES_Font * tfont, TEVES_Color _color);
