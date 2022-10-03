@@ -6,10 +6,6 @@ TEVES_Window window;
 TEVES_Keyboard Keyboard;
 TEVES_Color Background_Color;
 
-unsigned int texture;
-
-int width, height, nrChannels;
-
 TEVES_Anim anim;
 
 void Update()
@@ -46,9 +42,6 @@ int main()
     TEVES_SetAttribute(&window, TEVES_DISABLE_TITLEBAR);
 
     TEVES_InitKeyboard(&Keyboard, &window);
-
-    // TEVES_SetAttribute(&window, TEVES_ENABLE_TRANSPARENTWINDOW);
-    // TEVES_SetAttribute(&window, TEVES_DISABLE_TITLEBAR);
 
     TEVES_Anim_LoadAnimationImage(&anim, "./media/Animation.png", 8, 2, TEVES_IMAGE_RGBA_MODE);
     // TEVES_Anim_LoadAnimationImage(&anim, "./media/Animation2.png", 8, 2, TEVES_IMAGE_RGBA_MODE);

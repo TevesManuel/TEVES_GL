@@ -182,7 +182,6 @@ void PhysicalManager()
 }
 void IA()
 {
-    printf("a: %d\n", EnemiesCounter);
     //IA
     if(window.time > timetogenerateenemy && EnemiesCounter <= 10)
     {
@@ -330,8 +329,8 @@ void Update()
     if(scene == 0) // MENU
     {
         TEVES_UpdateKeyboard(&Keyboard);
-        TEVES_FontDrawText(&font, "Welcome to simple sample for basic usage TEVES_GL", window.w*0.44, 10);
-        TEVES_FontDrawText(&font, "Press space to init sample.", window.w*0.44, window.h*0.5);
+        TEVES_FontDrawText(&font, "WELCOME TO BASIC EXAMPLE FOR USAGE TEVES_GL", window.w*0.44, 10);
+        TEVES_FontDrawText(&font, "PRESS SPACE TO INIT SAMPLE.", window.w*0.44, window.h*0.5);
         if(TEVES_GetKeyUp(&Keyboard, TEVES_KEY_SPACE))
             scene = 1;
     }
@@ -346,7 +345,7 @@ void Update()
         }
         TEVES_UpdateKeyboard(&Keyboard);
         TEVES_FontDrawText(&font, "GAMEOVER", window.w*0.44, 10);
-        TEVES_FontDrawText(&font, "Press space to init sample.", window.w*0.44, window.h*0.5);
+        TEVES_FontDrawText(&font, "PRESS SPACE TO RESTART SAMPLE.", window.w*0.44, window.h*0.5);
         if(TEVES_GetKeyUp(&Keyboard, TEVES_KEY_SPACE))
         {
             PlayerProperties.hitted = TEVES_FALSE;

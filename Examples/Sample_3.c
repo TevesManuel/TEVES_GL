@@ -42,12 +42,13 @@ int main()
     TEVES_SetUpdate(&window, &Update);
     TEVES_SyncFPS(&window, 60);
     TEVES_SetAttribute(&window, TEVES_ENABLE_TRANSPARENTWINDOW);
+    TEVES_SetAttribute(&window, TEVES_ENABLE_ALWAYS_ON_TOP);
     TEVES_SetAttribute(&window, TEVES_DISABLE_TITLEBAR);
 
     TEVES_InitKeyboard(&Keyboard, &window);
 
     //SUPPORT JPEG, PNG, BMP, TGA and PSD
-    TEVES_Image_LoadImage(&img, "a.png", TEVES_IMAGE_RGBA_MODE);
+    TEVES_Image_LoadImage(&img, "./media/a.png", TEVES_IMAGE_RGBA_MODE);
     // TEVES_Image_LoadImageA(&img, "a.png");
 
     img.transform.x = 0.0f;

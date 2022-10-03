@@ -15,8 +15,7 @@ void update()
 {
     TEVES_Clear(background);
 
-    // TEVES_FONT_DrawChar(&font, 'a', 100, 100);
-    TEVES_FONT_DrawText(&font, "Test text", x, y);
+    TEVES_FontDrawText(&font, "Test text", x, y);
     TEVES_SetDrawColor(TEVES_InitColor(0,255,0,255));
     TEVES_DrawRectA(x, y, 10, 10);
 }
@@ -32,11 +31,9 @@ int main()
     TEVES_SetAttribute(&win, TEVES_DISABLE_TITLEBAR);
     TEVES_SetAttribute(&win, TEVES_ENABLE_ALWAYS_ON_TOP);
 
-    // background = TEVES_InitColorA(200);
     background = TEVES_InitColor(0,0,0,255);
     
-    TEVES_FONT_InitW(&font, "./arial.ttf", 80, TEVES_InitColor(258, 128, 0, 255), TEVES_FONT_ALIGN_LEFT);
-    // TEVES_FONT_InitW(&font, "./arial.ttf", 128, TEVES_InitColor(258, 128, 0, 255), NULL);
+    TEVES_InitFontW(&font, "./arial.ttf", 80, TEVES_InitColor(258, 128, 0, 255), TEVES_FONT_ALIGN_LEFT);
 
     TEVES_Loop(&win);
     TEVES_TERMINATE();
